@@ -3,22 +3,15 @@
 
 {% block message %}
     <hr />
-    <h4 class="text-center">MESSAGE</h4>
-    <p class="text-center"><i>{{query}}</i></p>
+    <h3 class="text-center">Your Result</h3>
+
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-center">Result</h1>
-        <ul class="list-group">
-            {% for category, classification in classification_result.items() %}
-                {% if classification == 1 %}
-                    <li class="list-group-item list-group-item-success text-center">{{category.replace('_', ' ').title()}}</li>
-                {% else %}
-                    <li class="list-group-item list-group-item-dark text-center">{{category.replace('_', ' ').title()}}</li>
-                {% endif %}
-            {% endfor %}
 
-        </div>
-    </div>
-
+<h3 class="text-center">{{breed}}</h3>
+<p class="text-center"><i>{{result_string}}</i></p>
+<img src="static/cache.jpeg" class="img-fluid" alt="Responsive image"/>
+<p class="text-center"><i>{{breed}}</i></p>
+<img src={{breed_path}} class="img-fluid" alt="Responsive image"/>
 {% endblock %}
