@@ -2,8 +2,6 @@
 {% block title %}Results{% endblock %}
 
 {% block message %}
-    <hr />
-    <h3 class="text-center">Your Result</h3>
 
 {% endblock %}
 
@@ -11,7 +9,16 @@
 
 <h3 class="text-center">{{breed}}</h3>
 <p class="text-center"><i>{{result_string}}</i></p>
-<img src="static/cache.jpeg" class="img-fluid" alt="Responsive image"/>
-<p class="text-center"><i>{{breed}}</i></p>
-<img src={{breed_path}} class="img-fluid" alt="Responsive image"/>
+    <div class="row h-200 justify-content-center align-items-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <img src="static/cache.jpeg" class="img-fluid img-thumbnail" alt="your_image" />
+        </div>
+    
+        <div class="col-md-3">
+            <img src={{breed_path}} class="img-fluid img-thumbnail" alt="dog_breed_sample" />
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>    
 {% endblock %}

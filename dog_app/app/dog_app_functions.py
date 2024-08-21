@@ -79,7 +79,7 @@ def human_dog_classifier(img_path, model):
     if (human == True) | (dog == True):
 
         breed_string=Xception_predict_breed(img_path, model)[1:]
-        breed = breed_string.replace("_"," ")
+        breed = breed_string.replace("_"," ").title()
         breed_path ="static/" + breed_string + ".jpg"
         result_string = f' The image resembles most to a {breed}.'
 

@@ -52,8 +52,12 @@
                 </form>
             -->
                 <form action="/go" method="post" enctype="multipart/form-data">
-                    <p><input type="file" id="file" name="file"><input type=submit value=Upload></p>
-                    
+                    <p>
+                        <div class="col text-center">
+                            <input type="file" class="form-control form-control-lg" id="file" name="file">
+                            <br>
+                            <input type=submit class="btn btn-lg btn-success" value=Upload></p>
+                        </div>	
                 </form>
             </div>
         </div>
@@ -69,12 +73,43 @@
         <div class="page-header">
             <h1 class="text-center">Examples</h1>
         </div>
-        
+
+        <div class="row">
+            <h2 class="text-center">Dogs</h2>
+            <h3 class="text-center">Norfolk Terrier</h3>
+            <p class="text-center"><i>The image resembles most to a Norfolk Terrier.</i></p>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <img src="/static/Molly_Norfolk_Terrier.jpeg" class="img-fluid img-thumbnail" alt="your_image" />
+                </div>
+                <div class="col-md-3">
+                    <img src="/static/Norfolk_terrier.jpg" class="img-fluid img-thumbnail" alt="dog_breed_sample" />
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    
+    <br>
+    <br>
+
+        <div class="row">
+            <h2 class="text-center">Humans</h2>
+            <h3 class="text-center">Norfolk Terrier</h3>
+            <p class="text-center"><i>The image resembles most to an Afghan Hound.</i></p>
+            <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <img src="/static/carina.jpg" class="img-fluid img-thumbnail" alt="your_image" />
+                </div>
+            
+            <div class="col-md-3">
+                <img src="/static/Afghan_hound.jpg" class="img-fluid img-thumbnail" alt="dog_breed_sample" />
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <p></p>
     {% endblock %}
 
-    {% for id in ids %}
-        <div id="{{id}}"></div>
-    {% endfor %}
+
 </div>
 
 
