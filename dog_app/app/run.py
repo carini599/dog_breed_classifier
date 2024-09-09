@@ -1,20 +1,11 @@
-import json
-import plotly
-import pandas as pd
-
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
-
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar, Heatmap
-#from sklearn.externals import joblib
-import joblib
+
 from PIL import Image
-import base64
 from io import BytesIO
 from werkzeug.utils import secure_filename
 import dog_app_functions
+import os
 
 app = Flask(__name__)
 
@@ -30,7 +21,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def master():
-    return render_template('master.html'), 200
+
+    if os.path.exists("static/cache.jpeg"):
+        print('Cache wird geleert')
+        os.remove("static/cache.jpeg")
+    return render_template('master.html')
 
 
 # web page that handles user query and displays model results

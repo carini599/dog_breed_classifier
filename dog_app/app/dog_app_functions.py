@@ -1,5 +1,4 @@
 from extract_bottleneck_features import *
-from os import listdir
 import cv2                
 import matplotlib.pyplot as plt
 from keras.preprocessing import image               
