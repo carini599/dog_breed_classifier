@@ -18,19 +18,34 @@ This is the capstone project of my Nanodegree in "Data Science" at Udacity. In t
 First goal was to evaluate the classification of photos of humans and dogs. 
 In the next step, I set up a custom CNN to classify dogs according to their breed. 
 In Step 4, the Jupiter Notebook guides through upsetting a CNN using transfer learning of the VGG-16-Model.
-In Step 5, I set up my own CNN based on transfer learning. 
-Based on this model, I finally provide an algorithm, that takes in a photo and classifies it, whether it is a human, a doog, and to which breed it resembles the most.
+In Step 5, I set up my own CNN based on transfer learning of the Xception Model. 
+Based on this model, I finally provide an algorithm, that takes in a photo and classifies it, whether it is a human, a dog, and to which breed it resembles the most.
 
 ## File Descriptions <a name="files"></a>
 
 * dog_app.ipynb: Jupiter Notebook, where I work along several excercises to set up a custom and a transfer learning CNN to classify images.
-* extract_bottleneck_features.py: function to load files from VGG16 model
+* extract_bottleneck_features.py: function to load files from different pretrained CNNs
 * saved_models: Folder with Model results
-* dog_images: Folder with images and breeds of dogs
-* haarcascades: Folder with model weights of Face classifier
-* lfw: Folder with photos of humans
+* dog_images: Folder with images and breeds of dogs 
+    (I downloaded the files from Kaggle using the link: https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip, since there was no download option in the Udacity Workspace to download more than one file at a time.)
+* haarcascades: Folder with model weights of face classifier
+* lfw: Folder with photos of humans (I downloaded the files from Kaggle using the link: https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip, since there was no download option in the Udacity Workspace to download more than one file at a time.)
+* bottleneck_features: model data of VGG16 and Xception trained on dog images
+* dog_app : Folder with Web App Code
+    ** app
+        *** static: photos which show examples of dog breeds
+        *** templates: html files for dog_app (master.html as start page and go.html as classification page)
+        *** dog_app_functions.py: collection of functions to return model results that are used by run.py
+        *** extract_bottleneck_features: function to load files from different pretrained CNNs
+        *** run.py: central code for dog app, based on flask
+
+    ** models: Xception based model trained on dog images
+* images: images used in dog_app.ipynb and test images for classification 
 
 ## Results <a name="results"></a>
+
+
+99% of Human Faces in the test dataset are classified correctly and 88% of dogs have not been classified as humans by the face detector.  
 
 The custom CNN results in an accuracy of 3.1%. 
 
