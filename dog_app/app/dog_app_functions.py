@@ -6,7 +6,10 @@ from tqdm import tqdm
 import numpy as np     
 from keras.layers import GlobalAveragePooling2D
 from keras.layers import Dense
-from keras.models import Sequential            
+from keras.models import Sequential
+from keras.applications.resnet50 import preprocess_input, decode_predictions
+from keras.applications.resnet50 import ResNet50
+
 
 
 def path_to_tensor(img_path):
@@ -20,8 +23,41 @@ def path_to_tensor(img_path):
         return None
 
 def paths_to_tensor(img_paths):
-    list_of_tensors = [path_to_tensor(img_path) for img_path in tqdm(img_paths)]
-    return np.vstack(list_of_tensors)
+    batch_tensors = []
+    
+    for img_path in img_paths:
+        tensor = path_to_tensor(img_path)
+        if tensor is not None:
+            batch_tensors.append(tensor[0])
+    return np.array(batch_tensors)
+
+def face_detector(img_path):
+    '''Returns "True" if face is detected in image stored at img_path'''
+    face_cascade = cv2.CascadeClassifier('../models/haarcascade_frontalface_alt.xml')
+    img = cv2.imread(img_path)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray)
+    return len(faces) > 0
+    
+
+def ResNet50_predict_labels(img_path):
+    '''returns prediction vector for image located at img_path'''
+    
+    ResNet50_model = ResNet50(weights='imagenet')
+    img = preprocess_input(path_to_tensor(img_path));
+
+    return np.argmax(ResNet50_model.predict(img, verbose=None))
+
+
+def dog_detector(img_path):
+    '''Function that take in a path to an image and returns True, if a dog is detected in the image based on the ResNet50 Model
+    INPUT: img_path: path to an image
+    OUTPUT: True, when a dog is detected in the image'''
+
+    prediction = ResNet50_predict_labels(img_path)
+    
+    return ((prediction <= 268) & (prediction >= 151)) 
+
 
 def initialize_model():
 
@@ -64,27 +100,32 @@ def human_dog_classifier(img_path, model):
     #plt.show()
     print(img_path)
 
-    human = False
-    dog = True
+    human = face_detector(img_path)
+    dog = dog_detector(img_path)
 
     # Check whether the image shows a human
     if human == True:
-        print('The image shows a human.')
+        human_dog = 'The image shows a human.'
     
     #Check whether the image shows a dog
     if dog == True:
-        print('The image shows a dog.')
+        human_dog = 'The image shows a dog.'
     
     if (human == True) | (dog == True):
 
         breed_string=Xception_predict_breed(img_path, model)[1:]
         breed = breed_string.replace("_"," ").title()
         breed_path ="static/" + breed_string + ".jpg"
-        result_string = f' The image resembles most to a {breed}.'
+        result_string = f'It resembles most to the breed {breed}.'
 
         #dog_breed_image(breed)    
-        return breed, result_string, breed_path
+        return breed, human_dog, result_string, breed_path
     
     if (human == False) & (dog == False):
-        print('ERROR: I cannot classify the picture as human or dog') 
-        return None, None, None
+        result_string = 'Dog breeds are only classfied for human or dog pictures.' 
+        breed_path = "static/error.jpg"
+        human_dog = 'ERROR: I cannot classify the picture as human or dog.'
+        breed = 'Error'
+        return breed, human_dog, result_string, breed_path
+    
+

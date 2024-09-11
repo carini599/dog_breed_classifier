@@ -51,13 +51,14 @@ def go():
 
     #Initialize Model 
     Xception_Model = dog_app_functions.initialize_model()
-    breed, result_string, breed_path = dog_app_functions.human_dog_classifier("static/cache.jpeg", Xception_Model)
+    breed, human_dog, result_string, breed_path = dog_app_functions.human_dog_classifier("static/cache.jpeg", Xception_Model)
 
 
     # This will render the go.html Please see that file. 
     return render_template(
         'go.html',
         breed=breed,
+        human_dog=human_dog,
         result_string=result_string,
         breed_path= breed_path
         #query=query,
