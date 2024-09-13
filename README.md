@@ -22,8 +22,6 @@ The following packages are necessary to run the code of the
     * cv2
     * matplotlib
     * PIL
-    * seaborn
-    * pandas
     * os
 
 * Web App (Dog App)
