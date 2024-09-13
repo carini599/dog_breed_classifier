@@ -3,7 +3,6 @@ from flask import render_template, request
 from PIL import Image
 from io import BytesIO
 import dog_app_functions
-import os
 import base64
 
 app = Flask(__name__)
