@@ -13,27 +13,27 @@ Udacity capstone Project: CNN (Convolutional Neural Network) model to predict do
 The code is written using Pythons version 3.11.0. All libraries are available within the Anaconda distribution of Python.
 The following packages are necessary to run the code of the 
 * Jupyter Notebook: dog_app.ipynb
-    ** opencv-python-headless==4.9.0.80
-    ** sklearn
-    ** keras       
-    ** numpy
-    ** glob
-    ** random
-    ** cv2
-    ** matplotlib
-    ** PIL
-    ** seaborn
-    ** pandas
-    ** os
+    * opencv-python-headless==4.9.0.80
+    * sklearn
+    * keras       
+    * numpy
+    * glob
+    * random
+    * cv2
+    * matplotlib
+    * PIL
+    * seaborn
+    * pandas
+    * os
 
 * Web App (Dog App)
-    ** flask
-    ** PIL
-    ** io
-    ** base64
-    ** cv2
-    ** keras
-    ** numpy
+    * flask
+    * PIL
+    * io
+    * base64
+    * cv2
+    * keras
+    * numpy
 
 ## Project Motivation <a name="motivation"></a>
 
@@ -58,14 +58,14 @@ You can find further information about the development of my dog classification 
 * lfw: Folder with photos of humans (I downloaded the files from Kaggle using the link: https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip, since there was no download option in the Udacity Workspace to download more than one file at a time.)
 * bottleneck_features: model data of VGG16 and Xception trained on dog images
 * dog_app : Folder with Web App Code
-    ** app
-        *** static: photos which show examples of dog breeds
-        *** templates: html files for dog_app (master.html as start page and go.html as classification page)
-        *** dog_app_functions.py: collection of functions to return model results that are used by run.py
-        *** extract_bottleneck_features: function to load files from different pretrained CNNs
-        *** run.py: central code for dog app, based on flask
+    * app
+        * static: photos which show examples of dog breeds
+        * templates: html files for dog_app (master.html as start page and go.html as classification page)
+        * dog_app_functions.py: collection of functions to return model results that are used by run.py
+        * extract_bottleneck_features: function to load files from different pretrained CNNs
+        * run.py: central code for dog app, based on flask
 
-    ** models: Xception based model trained on dog images
+    * models: Xception based model trained on dog images
 * images: images used in dog_app.ipynb and test images for classification. 
 
 ## Results <a name="results"></a>
