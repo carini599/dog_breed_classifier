@@ -81,9 +81,9 @@ https://breuerei.de/dog_app
 
 ## Screenshots Web App
 
-![Dog Breed Classifier](images/screenshot_dog_app_1.jpg)
+![Dog Breed Classifier](images/screenshot_dog_app_1.png)
 
-![Dog Breed Classifier](images/screenshot_dog_app_2.jpg)
+![Dog Breed Classifier](images/screenshot_dog_app_2.png)
 
 
 ## Licensing, Authors, Acknowledgements <a name="licensing"></a>
