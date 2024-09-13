@@ -11,6 +11,29 @@ Udacity capstone Project: CNN (Convolutional Neural Network) model to predict do
 ## Installation <a name="installation"></a>
 
 The code is written using Pythons version 3.11.0. All libraries are available within the Anaconda distribution of Python.
+The following packages are necessary to run the code of the 
+* Jupyter Notebook: dog_app.ipynb
+    ** opencv-python-headless==4.9.0.80
+    ** sklearn
+    ** keras       
+    ** numpy
+    ** glob
+    ** random
+    ** cv2
+    ** matplotlib
+    ** PIL
+    ** seaborn
+    ** pandas
+    ** os
+
+* Web App (Dog App)
+    ** flask
+    ** PIL
+    ** io
+    ** base64
+    ** cv2
+    ** keras
+    ** numpy
 
 ## Project Motivation <a name="motivation"></a>
 
@@ -20,6 +43,9 @@ In the next step, I set up a custom CNN to classify dogs according to their bree
 In Step 4, the Jupiter Notebook guides through upsetting a CNN using transfer learning of the VGG-16-Model.
 In Step 5, I set up my own CNN based on transfer learning of the Xception Model. 
 Based on this model, I finally provide an algorithm, that takes in a photo and classifies it, whether it is a human, a dog, and to which breed it resembles the most.
+
+To make use of this classification algorithm, I finally set up a web app using flask, which takes in a custom photo and classifies it.
+You can find further information about the development of my dog classification app on my blog using the link: https://breuerei.de/classify-your-dogs-breed-or-find-your-barking-twin-my-journey-into-neural-networks/ 
 
 ## File Descriptions <a name="files"></a>
 
@@ -40,14 +66,18 @@ Based on this model, I finally provide an algorithm, that takes in a photo and c
         *** run.py: central code for dog app, based on flask
 
     ** models: Xception based model trained on dog images
-* images: images used in dog_app.ipynb and test images for classification 
+* images: images used in dog_app.ipynb and test images for classification. 
 
 ## Results <a name="results"></a>
 
+For results the results of my capstone project, please refer to my blog post on https://breuerei.de/classify-your-dogs-breed-or-find-your-barking-twin-my-journey-into-neural-networks/ and check out my Dog Classification App on
+https://breuerei.de/dog_app
 
-99% of Human Faces in the test dataset are classified correctly and 88% of dogs have not been classified as humans by the face detector.  
+## Screenshots Web App
 
-The custom CNN results in an accuracy of 3.1%. 
+![Dog Breed Classifier](images/screenshot_dog_app_1.jpg)
+
+![Dog Breed Classifier](images/screenshot_dog_app_2.jpg)
 
 
 ## Licensing, Authors, Acknowledgements <a name="licensing"></a>
