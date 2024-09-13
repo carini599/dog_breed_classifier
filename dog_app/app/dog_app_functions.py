@@ -39,7 +39,7 @@ def ResNet50_predict_labels(img):
 
 def dog_detector(img):
     '''Function that takes in an image and returns True, if a dog is detected in the image based on the ResNet50 Model
-    INPUT: img_path: path to an image
+    INPUT: img: image to be classified
     OUTPUT: True, when a dog is detected in the image'''
 
     prediction = ResNet50_predict_labels(img)
@@ -80,7 +80,7 @@ def human_dog_classifier(img):
     The function checks, whether the provided image is a human, a dog or neither of the two and returns the most resembling dog breed for dogs and humans.
 
     INPUT:
-    img_path: path to a photo to be classified
+    img: photo to be classified
     
     OUTPUT:
     breed: string of dog breed
