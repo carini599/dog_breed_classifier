@@ -76,7 +76,7 @@ You can find further information about the development of my dog classification 
 
 ## Results <a name="results"></a>
 
-For results the results of my capstone project, please refer to my blog post on https://breuerei.de/classify-your-dogs-breed-or-find-your-barking-twin-my-journey-into-neural-networks/ and check out my Dog Classification App on
+For results of my dog_breed_classification project, please refer to my blog post on https://breuerei.de/classify-your-dogs-breed-or-find-your-barking-twin-my-journey-into-neural-networks/ and check out my Dog Classification App on
 https://breuerei.de/dog_app
 
 ## Screenshots Web App
