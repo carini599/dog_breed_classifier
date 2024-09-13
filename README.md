@@ -35,6 +35,14 @@ The following packages are necessary to run the code of the
     * keras
     * numpy
 
+To run the Jupyter Notebook dog_app.ipynb, you need to add the following folders and their content from the Udacity workspace since their content is too large to upload them to GitHub.
+
+* dog_images: Folder with images and breeds of dogs (I downloaded the files from Kaggle using the link: https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip, since there was no download option in the Udacity Workspace to download more than one file at a time.)
+* lfw: Folder with photos of humans (I downloaded the files from Kaggle using the link: https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip, since there was no download option in the Udacity Workspace to download more than one file at a time.)
+* bottleneck_features: 
+    * DogVGG16Data.npz
+    * DogXceptionData.npz
+
 ## Project Motivation <a name="motivation"></a>
 
 This is the capstone project of my Nanodegree in "Data Science" at Udacity. In the Jupyter Notebook dog_app.ipynb, I work along several excercises to set up different CNNs(convolutional neural networks). 
