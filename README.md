@@ -62,7 +62,7 @@ You can find further information about the development of my dog classification 
         * static: photos which show examples of dog breeds
         * templates: html files for dog_app (master.html as start page and go.html as classification page)
         * dog_app_functions.py: collection of functions to return model results that are used by run.py
-        * extract_bottleneck_features: function to load files from different pretrained CNNs
+        * extract_bottleneck_features.py: function to load files from different pretrained CNNs
         * run.py: central code for dog app, based on flask
 
     * models: Xception based model trained on dog images
