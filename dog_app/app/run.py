@@ -1,58 +1,39 @@
 from flask import Flask
-from flask import render_template, request, jsonify
-
+from flask import render_template, request
 from PIL import Image
 from io import BytesIO
-from werkzeug.utils import secure_filename
 import dog_app_functions
 import os
+import base64
 
 app = Flask(__name__)
 
-
-# index webpage displays cool visuals and receives user input text for model
-#@app.route('/')
-#@app.route('/master')
-#def master():
-#    return render_template(
-#        'master.html',
-#    )
-
-
+# Starting Page with picture upload option
 @app.route("/")
 def master():
 
-    if os.path.exists("static/cache.jpeg"):
-        print('Cache wird geleert')
-        os.remove("static/cache.jpeg")
     return render_template('master.html')
 
 
-# web page that handles user query and displays model results
+# Web page that displays classification results
 @app.route('/go',methods=['POST'])
 def go():
     if request.method == 'POST':
         file = request.files['file']
         if file:
-            filename = secure_filename(file.filename)
-            print(filename)
             img = Image.open(file.stream)
-            with BytesIO():
-                img.save("static/cache.jpeg", "jpeg")
+
+            # Convert the image to a byte array
+            buffered = BytesIO()
+            img.save(buffered, format="PNG")
+            img_bytes = buffered.getvalue()
+
+            # Convert the byte array to a base64 string, to display the image in html later
+            img_base64 = base64.b64encode(img_bytes).decode('utf-8')
 
     
-    
-    # save user input in query
-    # query = request.args.get('query', '') 
-
-    # use model to predict classification for query
-    #classification_results = query
-    #print(classification_results)
-
-    #Initialize Model 
-    Xception_Model = dog_app_functions.initialize_model()
-    breed, human_dog, result_string, breed_path = dog_app_functions.human_dog_classifier("static/cache.jpeg", Xception_Model)
-
+    # Detect whether image shows a human or a dog and which breed resembles most
+    breed, human_dog, result_string, breed_path = dog_app_functions.human_dog_classifier(img)
 
     # This will render the go.html Please see that file. 
     return render_template(
@@ -60,9 +41,8 @@ def go():
         breed=breed,
         human_dog=human_dog,
         result_string=result_string,
-        breed_path= breed_path
-        #query=query,
-        #classification_result=classification_results
+        breed_path= breed_path,
+        img=img_base64
     )
 
 

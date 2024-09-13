@@ -1,65 +1,54 @@
 from extract_bottleneck_features import *
 import cv2                
-import matplotlib.pyplot as plt
 from keras.preprocessing import image               
-from tqdm import tqdm
 import numpy as np     
-from keras.layers import GlobalAveragePooling2D
-from keras.layers import Dense
+from keras.layers import GlobalAveragePooling2D, Dense
 from keras.models import Sequential
-from keras.applications.resnet50 import preprocess_input, decode_predictions
-from keras.applications.resnet50 import ResNet50
+from keras.applications.resnet50 import ResNet50, preprocess_input
 
 
 
-def path_to_tensor(img_path):
-    try:
-        img = image.load_img(img_path, target_size=(224, 224))
+def path_to_tensor(img):
+        # Resize Image
+        img = img.resize((224, 224))
+        # Convert image to array
         x = image.img_to_array(img)
-        # Normalize the image tensor
-        return np.expand_dims(x, axis=0)#.astype('float32')/255
-    except IOError:
-        print(f"Warning: Skipping corrupted image {img_path}")
-        return None
+        return np.expand_dims(x, axis=0)
 
-def paths_to_tensor(img_paths):
-    batch_tensors = []
+def face_detector(img):
+    '''Function returns "True" if face is detected in img'''
     
-    for img_path in img_paths:
-        tensor = path_to_tensor(img_path)
-        if tensor is not None:
-            batch_tensors.append(tensor[0])
-    return np.array(batch_tensors)
-
-def face_detector(img_path):
-    '''Returns "True" if face is detected in image stored at img_path'''
     face_cascade = cv2.CascadeClassifier('../models/haarcascade_frontalface_alt.xml')
-    img = cv2.imread(img_path)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    
+    gray = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2GRAY)
+    
     faces = face_cascade.detectMultiScale(gray)
+    
     return len(faces) > 0
     
 
-def ResNet50_predict_labels(img_path):
-    '''returns prediction vector for image located at img_path'''
+def ResNet50_predict_labels(img):
+    '''Returns prediction vector for img
+    INPUT: img: PIL Image'''
     
     ResNet50_model = ResNet50(weights='imagenet')
-    img = preprocess_input(path_to_tensor(img_path));
+    img = preprocess_input(path_to_tensor(img));
 
     return np.argmax(ResNet50_model.predict(img, verbose=None))
 
 
-def dog_detector(img_path):
-    '''Function that take in a path to an image and returns True, if a dog is detected in the image based on the ResNet50 Model
+def dog_detector(img):
+    '''Function that takes in an image and returns True, if a dog is detected in the image based on the ResNet50 Model
     INPUT: img_path: path to an image
     OUTPUT: True, when a dog is detected in the image'''
 
-    prediction = ResNet50_predict_labels(img_path)
+    prediction = ResNet50_predict_labels(img)
     
     return ((prediction <= 268) & (prediction >= 151)) 
 
 
 def initialize_model():
+    '''Function to initialize Xception model and load model weights'''
 
     Xception_model = Sequential()
     Xception_model.add(GlobalAveragePooling2D(input_shape=(7,7,2048)))
@@ -72,9 +61,13 @@ def initialize_model():
     return Xception_model
 
 
-def Xception_predict_breed(img_path, Xception_model):
+def Xception_predict_breed(img):
+    ''' Function to predict dog breeds with the Xception based CNN'''
+    
+    #Initialize Model 
+    Xception_model = initialize_model()
     # extract bottleneck features
-    bottleneck_feature = extract_Xception(path_to_tensor(img_path))
+    bottleneck_feature = extract_Xception(path_to_tensor(img))
     # obtain predicted vector
     predicted_vector = Xception_model.predict(bottleneck_feature)
     # return dog breed that is predicted by the model
@@ -82,7 +75,7 @@ def Xception_predict_breed(img_path, Xception_model):
     return dog_names[np.argmax(predicted_vector)]
 
 
-def human_dog_classifier(img_path, model):
+def human_dog_classifier(img):
     '''
     The function checks, whether the provided image is a human, a dog or neither of the two and returns the most resembling dog breed for dogs and humans.
 
@@ -90,42 +83,40 @@ def human_dog_classifier(img_path, model):
     img_path: path to a photo to be classified
     
     OUTPUT:
-    None
+    breed: string of dog breed
+    breed_string: (string) Full sentence with dog breed.
+    human_dog: (string) Sentence, which tells the human and dog classification result.
+    breed_path: (string) Path to a sample image of the dog breed.
     '''
-    print ('-----------------------------------------------------------------------------')
-    
-    # Display Image
-    im = cv2.imread(img_path)
-    #plt.imshow(cv2.cvtColor(im, cv2.COLOR_BGR2RGB))
-    #plt.show()
-    print(img_path)
-
-    human = face_detector(img_path)
-    dog = dog_detector(img_path)
+    human = face_detector(img)
+    dog = dog_detector(img)
 
     # Check whether the image shows a human
     if human == True:
         human_dog = 'The image shows a human.'
     
-    #Check whether the image shows a dog
+    # Check whether the image shows a dog
     if dog == True:
         human_dog = 'The image shows a dog.'
     
+    # When image shows a human or a dog, return the most resembling dog breed along with the human/dog classification result.
     if (human == True) | (dog == True):
 
-        breed_string=Xception_predict_breed(img_path, model)[1:]
+        breed_string=Xception_predict_breed(img)[1:]
         breed = breed_string.replace("_"," ").title()
         breed_path ="static/" + breed_string + ".jpg"
         result_string = f'It resembles most to the breed {breed}.'
-
-        #dog_breed_image(breed)    
+  
         return breed, human_dog, result_string, breed_path
     
+    # When neither a human nor a dog was detected on the image, the outputs contain error messages and the path to an error image.
     if (human == False) & (dog == False):
+        
         result_string = 'Dog breeds are only classfied for human or dog pictures.' 
         breed_path = "static/error.jpg"
         human_dog = 'ERROR: I cannot classify the picture as human or dog.'
         breed = 'Error'
+        
         return breed, human_dog, result_string, breed_path
     
 
