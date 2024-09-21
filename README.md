@@ -21,6 +21,8 @@ The following packages are necessary to run the code of the
     * random
     * cv2
     * matplotlib
+    * pandas
+    * seaborn
     * PIL
     * os
 
@@ -40,6 +42,8 @@ To run the Jupyter Notebook dog_app.ipynb, you need to add the following folders
 * bottleneck_features: 
     * DogVGG16Data.npz
     * DogXceptionData.npz
+
+The Web App can be started by running the code run.py in the folder dog_app/app. Alternatively you can use it on https://breuerei.de/dog_app
 
 ## Project Motivation <a name="motivation"></a>
 
